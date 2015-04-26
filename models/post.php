@@ -10,4 +10,15 @@ class Post_Model extends Master_Model{
     public function getAllPosts() {
         return $this->find();
     }
+    
+    public function addPost($postData) {
+        $queryData = array();
+        $queryData['columns'] = 'user_id, text, visits, title';
+        $queryData['values'] = 
+                $postData['user_id'] . ", '" 
+                . $postData['text'] . "'," 
+                . $postData['visits'] . ", '"
+                . $postData['title'] . "'";
+        return $this->insert($queryData);
+    }
 }

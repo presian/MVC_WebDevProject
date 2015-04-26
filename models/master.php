@@ -33,6 +33,26 @@ class Master_Model {
         return $this->find(array('where' => "id = $id"));
     }
     
+    //TODO: Make this work
+    public function insert($args = array()) {
+        $defaults = array(
+            'table' => $this->table,
+            'columns' => '',
+            'values' => ''
+        );
+        
+        $args = array_merge($defaults, $args);
+        extract($args);
+        $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
+        $resultSet = $this->db->query($query);
+        if ( gettype($resultSet) == 'boolean') {
+            return $resultSet;
+        }
+        $results = $this->processResultSet($resultSet);
+        
+        return $results;
+    }
+    
     public function find($args = array()) {
         $defaults = array(
             'table' => $this->table,

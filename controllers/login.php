@@ -19,15 +19,10 @@ class Login_Controller extends Master_Controller {
                 header("Location: " . ROOT_URL . 'posts/index'); 
                 exit();
             }else{
-                $errorMessage = 'Your login data is invalid!';
+                $this->errorMessage = 'Your login data is invalid!';
             }
         }
         $template = ROOT_DIR . $this->viewsDir . 'index.php';
         include_once $this->layout;
-    }
-    
-//    public function logout() {
-//        
-//    }
-    
+    }    
 }

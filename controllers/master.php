@@ -14,6 +14,8 @@ class Master_Controller{
         
         $this->viewsDir = $viewsDir;
         $this->className = $className;
+        $this->errorMessage = NULL;
+        $this->successMessage = NULL;
         
         if ($model != NULL) {
             include_once ROOT_DIR . "/models/{$model}.php";
@@ -28,7 +30,6 @@ class Master_Controller{
         $this->auth = \Lib\Auth::get_instance();
         $loggedUser = $this->auth->getLoggedUser();
         $this->loggedUser = $loggedUser;
-        
         $this->layout = ROOT_DIR . '/views/layouts/default.php';
     }
 }

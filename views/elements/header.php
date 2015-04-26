@@ -24,7 +24,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                          <li><a href="../posts/index">Posts<span class="sr-only">(current)</span></a></li>                          
+                          <li><a href="../posts/index">Posts</a></li> 
+                          <?php if($this->auth->isLogged()): ?>
+                          <li><a href="../posts/add">Add post</a></li>
+                          <?php endif; ?>
 <!--                          <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -58,6 +61,18 @@
                     </div>
                 </div>
             </nav>
+            <?php if($this->errorMessage != NULL): ?>
+            <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong><?= $this->errorMessage ?></strong>
+            </div>
+            <?php endif; ?>
+            <?php if($this->successMessage != NULL): ?>
+            <div class="alert alert-dismissible alert-success">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong><?= $this->successMessage ?></strong>
+            </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="btn-group-vertical col-xs-2">
                     <a href="#" class="btn btn-default">SideBarButton</a>
