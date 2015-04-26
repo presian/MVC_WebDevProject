@@ -9,11 +9,9 @@ define('ROOT_DIR', dirname(__FILE__)) . '/';
 define('ROOT_DIR_NAME', basename(dirname(__FILE__)));
 
 $request = $_SERVER['REQUEST_URI'];
-
 $controller = 'master';
 $method = 'index';
 $params = array();
-
 
 if (!empty($request)) {
     $requestAsParts = explode('/', $request);
@@ -28,11 +26,9 @@ if (!empty($request)) {
         }
         
         include_once 'controllers/' . $controller . '.php';
-        include_once 'models/' . $controller . '.php';
     }
     
     $controller_class = '\Controllers\\' . ucfirst($controller) . '_Controller';
-    
     $instance = new $controller_class();
     
     if (method_exists($instance, $method)) {
