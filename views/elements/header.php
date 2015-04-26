@@ -5,9 +5,9 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Blog System</title>
-      <link href="../../MVCMVC_WebDevProject/library/bootstrap/css/bootstrap.css">
-      <link rel="stylesheet" href="../../MVC_WebDevProject/styles/bootstrap-theme.css">
-      <script src="../../MVC_WebDevProject/library/jquery-2.1.3.js"></script>
+      <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/library/bootstrap/css/bootstrap.css">
+      <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/styles/bootstrap-theme.css">
+      <script type="text/javascript" src="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/library/jquery-2.1.3.js"></script>
     </head>
     <body>
         <div class="container">
