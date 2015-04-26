@@ -24,8 +24,7 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                          <li class="active"><a href="#">Posts<span class="sr-only">(current)</span></a></li>
-                          <li><a href="#">Register</a></li>
+                          <li><a href="../posts/index">Posts<span class="sr-only">(current)</span></a></li>                          
 <!--                          <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -45,9 +44,17 @@
                           </div>
                           <button type="submit" class="btn btn-default">Submit</button>
                         </form>-->
+                        
                         <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">LogIn</a></li>
-                      </ul>
+                            <?php if(!$this->auth->isLogged()): ?>
+                            <li><a href="../register/index">Register</a></li>
+                            <li><a href="../login/index">LogIn</a></li>
+                            <?php endif; ?>
+                            <?php if($this->auth->isLogged()): ?>
+                            <li><a href="../logout/index">LogOut</a></li>
+                            <?php endif; ?>
+                        </ul>
+                        
                     </div>
                 </div>
             </nav>

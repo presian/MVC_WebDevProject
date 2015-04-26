@@ -9,9 +9,11 @@ class Master_Model {
     protected $db;
 
     public function __construct($args = array()) {
-        $args = array(
+        $defaults = array(
             'limit' => 0
         );
+        
+        $args = array_merge($defaults, $args);
         
         if (!isset($args['table'])) {
             // TODO: Make corect behavier!
@@ -25,6 +27,10 @@ class Master_Model {
         
         $db_object = \Lib\Database::get_instance();
         $this->db = $db_object::getDb();
+    }
+    
+    public function get($id) {
+        return $this->find(array('where' => "id = $id"));
     }
     
     public function find($args = array()) {
