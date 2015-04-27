@@ -21,6 +21,8 @@ class Login_Controller extends Master_Controller {
             }else{
                 $this->errorMessage = 'Your login data is invalid!';
             }
+        } else{
+            $this->errorMessage = "All fields are mandatory!";
         }
         $template = ROOT_DIR . $this->viewsDir . 'index.php';
         include_once $this->layout;
