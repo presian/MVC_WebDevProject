@@ -13,12 +13,13 @@ class Post_Model extends Master_Model{
     
     public function addPost($postData) {
         $queryData = array();
-        $queryData['columns'] = 'user_id, text, visits, title';
+        $queryData['columns'] = 'user_id, text, visits, title, date';
         $queryData['values'] = 
                 $postData['user_id'] . ", '" 
-                . $postData['text'] . "'," 
+                . $postData['text'] . "', " 
                 . $postData['visits'] . ", '"
-                . $postData['title'] . "'";
+                . $postData['title'] . "', '"
+                . $postData['date'] . "'";
         return $this->insert($queryData);
     }
 }
