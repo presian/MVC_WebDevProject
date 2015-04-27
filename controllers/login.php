@@ -9,21 +9,23 @@ class Login_Controller extends Master_Controller {
     }
     
     function index() {
-        $errorMessage = NULL;
-        if (!empty($_POST['username']) && !empty($_POST['password'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            
-            $isLogged = $this->auth->logIn($username, $password);
-            if ($isLogged) {
-                header("Location: " . ROOT_URL . 'posts/index'); 
-                exit();
-            }else{
-                $this->errorMessage = 'Your login data is invalid!';
+        if (isset($_POST['submitted'])) {
+            if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+
+                $isLogged = $this->auth->logIn($username, $password);
+                if ($isLogged) {
+                    header("Location: " . ROOT_URL . 'posts/index'); 
+                    exit();
+                }else{
+                    $this->errorMessage = 'Your login data is invalid!';
+                }
+            } else{
+                $this->errorMessage = "All fields are mandatory!";
             }
-        } else{
-            $this->errorMessage = "All fields are mandatory!";
         }
+        
         $template = ROOT_DIR . $this->viewsDir . 'index.php';
         include_once $this->layout;
     }    
