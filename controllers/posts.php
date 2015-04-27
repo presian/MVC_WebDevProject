@@ -28,9 +28,10 @@ class Posts_Controller extends Master_Controller {
             } else {
                 $postData['user_id'] = $this->auth->getLoggedUser()['id'];
                 $postData['visits'] = 0;
+                $postData['date'] = date('Y-m-d H:m:s', time());
                 $isAdded = $this->model->addPost($postData);
                 if ($isAdded) {
-                    header("Location: " . HOME_URL); 
+                    header("Location: " . ROOT_URL . 'posts/index'); 
                     exit();
                 } else {
                     $errorMessage = 'Post is not recorded in database! Please try again later!';
@@ -39,6 +40,16 @@ class Posts_Controller extends Master_Controller {
         }
         
         include_once $this->layout;
+    }
+    
+    function view($id) {
+        if (!is_numeric($id)) {
+            header("Location: " . ROOT_URL . 'posts/index'); 
+            exit();
+        }
+        
+        // TODO: Make view of post and coments form
+        
     }
     
     private function getFormData() {
