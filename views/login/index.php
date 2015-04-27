@@ -11,5 +11,6 @@
             placeholder="Enter password" 
             value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>">
     </div>
+    <input type="hidden" name="submitted" class="btn btn-default" value="1">
     <button type="submit" class="btn btn-default">Enter</button>
 </form>
