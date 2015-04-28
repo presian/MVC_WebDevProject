@@ -29,11 +29,29 @@ class Master_Model {
         $this->db = $db_object::getDb();
     }
     
-    public function get($id) {
+    public function getById($id) {
         return $this->find(array('where' => "id = $id"));
     }
     
-    //TODO: Make this work
+    public function update($args = array()) {
+        $defaults = array(
+            'table' => $this->table,
+            'set' => '',
+            'where' => ''
+        );
+        
+        $args = array_merge($defaults, $args);
+        extract($args);
+        $query = "UPDATE {$table} SET {$set} WHERE {$where}";
+        $resultSet = $this->db->query($query);
+        if (gettype($resultSet) == 'boolean') {
+            return $resultSet;
+        }
+        
+        $results = $this->processResultSet($resultSet);
+        return $results;
+    }
+    
     public function insert($args = array()) {
         $defaults = array(
             'table' => $this->table,
@@ -45,11 +63,11 @@ class Master_Model {
         extract($args);
         $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
         $resultSet = $this->db->query($query);
-        if ( gettype($resultSet) == 'boolean') {
+        if (gettype($resultSet) == 'boolean') {
             return $resultSet;
         }
-        $results = $this->processResultSet($resultSet);
         
+        $results = $this->processResultSet($resultSet);
         return $results;
     }
     

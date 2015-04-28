@@ -7,6 +7,7 @@
       <title>Blog System</title>
       <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/library/bootstrap/css/bootstrap.css">
       <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/styles/bootstrap-theme.css">
+      <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/styles/main.css">
       <script type="text/javascript" src="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/library/jquery-2.1.3.js"></script>
     </head>
     <body>

@@ -32,5 +32,10 @@ class Master_Controller{
         $this->loggedUser = $loggedUser;
         $this->layout = ROOT_DIR . '/views/layouts/default.php';
     }
+    
+    function makeDateInFormat($dateStr) {
+        $date = new \DateTime($dateStr); 
+        return $date->format('d M y');
+    }
 }
 

@@ -1,0 +1,10 @@
+a{
+    color: white;
+    text-decoration: none;
+}
+.comment-form{
+    display: none;
+}
+.post-title{
+    font-size: 20px;
+}
