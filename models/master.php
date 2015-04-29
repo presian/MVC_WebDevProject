@@ -61,7 +61,11 @@ class Master_Model {
         
         $args = array_merge($defaults, $args);
         extract($args);
-        $query = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
+        $query = "INSERT IGNORE INTO {$table}({$columns}) VALUES({$values})";
+//        echo '<pre>';
+//        var_dump($query);
+//        die;
+//        echo '</pre>';
         $resultSet = $this->db->query($query);
         if (gettype($resultSet) == 'boolean') {
             return $resultSet;

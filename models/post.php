@@ -12,6 +12,8 @@ class Post_Model extends Master_Model{
     }
     
     public function addPost($postData) {
+        
+        // post insertation preaparation
         $queryData = array();
         $queryData['columns'] = 'user_id, text, visits, title, date';
         $queryData['values'] = 
@@ -20,7 +22,52 @@ class Post_Model extends Master_Model{
                 . $postData['visits'] . ", '"
                 . $postData['title'] . "', '"
                 . $postData['date'] . "'";
-        return $this->insert($queryData);
+        
+        
+        // tags insertation preaparation
+//        $tagsValues = "'" . implode("'), ('", $postData['tags']) . "'";
+//        $tagsQueryData = array(
+//            'table' => 'tags',
+//            'columns' => 'text',
+//            'values' => $tagsValues
+//        );
+        
+        $this->db->autocommit(FALSE);
+        $postInsertResult = $this->insert($queryData);
+        $post_id = $this->db->insert_id;
+        $tagsIds = array();
+        foreach ($postData['tags'] as $tag) {
+            $tagsQueryData = array(
+                'table' => 'tags',
+                'columns' => 'text',
+                'values' => "'$tag'"
+            );
+            $tagsInsertResult = $this->insert($tagsQueryData);
+            if ($tagsInsertResult == FALSE) {
+                return FALSE;
+            }
+            
+            $tagsIds[] = $this->db->insert_id;
+        }
+        
+        // posts_tags insertation preaparation
+        $postsTagsQueryData = array(
+            'table' => 'posts_tags',
+            'columns' => 'post_id, tag_id',
+            'values' => "'$post_id', '" . implode("'), ('$post_id', '", $tagsIds) . "'"
+        );
+        
+        $postsTagsIsnertResult = $this->insert($postsTagsQueryData);
+        if ($postInsertResult == TRUE 
+            && $tagsInsertResult == TRUE 
+            && $postsTagsIsnertResult == TRUE) {
+            $this->db->commit();
+            $this->db->autocommit(TRUE);
+            return TRUE;
+        } else {
+            $this->db->rollback();
+            return FALSE;
+        }
     }
     
     public function getPostById($id) {

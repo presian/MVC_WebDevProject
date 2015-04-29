@@ -90,12 +90,22 @@ class Posts_Controller extends Master_Controller {
 
     private function getAddPostFormData() {
         if (empty(trim($_POST['title'])) 
+                || empty(trim($_POST['tags'])) 
                 || empty(trim($_POST['text']))) {
             return FALSE;
         }
+        $title = $_POST['title'];
+        $text = $_POST['text'];
+        $tags = preg_split( "/[\s,|\.:;&<>\?=@+\-!\\\\\/]+/", $_POST['tags']);
+        
+        if (!is_array($tags) || count($tags) < 1) {
+            return FALSE;
+        }
+        
         $data = array();
-        $data['title'] = $_POST['title'];
-        $data['text'] = $_POST['text'];
+        $data['title'] = $title;
+        $data['text'] = $text;
+        $data['tags'] = $tags;
         return $data;
     }
 }

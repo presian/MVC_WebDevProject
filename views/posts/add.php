@@ -6,6 +6,13 @@
             value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title'] ): ''  ?>">
     </div>
     <div class="form-group">
+        <label for="tags">Tags:</label>
+        <input type="tags" class="form-control" id="tags" name="tags" required="required"
+            placeholder="Enter some tags"
+            value="<?= isset($_POST['tags']) ? htmlspecialchars($_POST['tags'] ): ''  ?>">
+        <em>Only words separated with comas are allowed!</em>
+    </div>
+    <div class="form-group">
         <label for="text">Text:</label>
         <textarea class="col-xs-12" rows="5" name="text" 
                 placeholder="Add post text here..."><?= isset($_POST['text']) 
