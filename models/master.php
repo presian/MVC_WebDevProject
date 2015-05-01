@@ -29,6 +29,12 @@ class Master_Model {
         $this->db = $db_object::getDb();
     }
     
+    public function exuteStatement($statement) {
+        $statement->execute();
+        $rows = $statement->get_result();        
+        return $this->processResultSet($rows);
+    }
+    
     public function getById($id) {
         return $this->find(array('where' => "id = $id"));
     }
@@ -62,10 +68,6 @@ class Master_Model {
         $args = array_merge($defaults, $args);
         extract($args);
         $query = "INSERT IGNORE INTO {$table}({$columns}) VALUES({$values})";
-//        echo '<pre>';
-//        var_dump($query);
-//        die;
-//        echo '</pre>';
         $resultSet = $this->db->query($query);
         if (gettype($resultSet) == 'boolean') {
             return $resultSet;
@@ -80,7 +82,8 @@ class Master_Model {
             'table' => $this->table,
             'limit' => $this->limit,
             'where' => '',
-            'columns' => '*'
+            'columns' => '*',
+            'order' => ''
         );
         
         $args = array_merge($defaults, $args);
@@ -94,6 +97,10 @@ class Master_Model {
         
         if (!empty ($limit)) {
             $query .= " LIMIT $limit";
+        }
+        
+        if (!empty($order)) {
+            $query .= " ORDER BY $order";
         }
         
         $resultSet = $this->db->query($query);

@@ -2,9 +2,17 @@ a{
     color: white;
     text-decoration: none;
 }
+a:hover{
+    text-decoration: none;
+    color: white;
+}
 .comment-form{
     display: none;
 }
 .post-title{
     font-size: 20px;
+}
+.tag-right{
+    float: right;
+    margin-left: 5px;
 }

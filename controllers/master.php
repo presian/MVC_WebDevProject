@@ -6,7 +6,9 @@ class Master_Controller{
     
     protected $layout;
     protected $viewsDir;
-    
+    protected $message;
+
+
     public function __construct(
             $className = '\Controllers\Master_Controller',
             $model = 'master',
@@ -14,8 +16,7 @@ class Master_Controller{
         
         $this->viewsDir = $viewsDir;
         $this->className = $className;
-        $this->errorMessage = NULL;
-        $this->successMessage = NULL;
+        $this->message = NULL;
         
         if ($model != NULL) {
             include_once ROOT_DIR . "/models/{$model}.php";

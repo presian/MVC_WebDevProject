@@ -16,13 +16,17 @@ class Login_Controller extends Master_Controller {
 
                 $isLogged = $this->auth->logIn($username, $password);
                 if ($isLogged) {
+                    $this->message['type'] = 'info';
+                    $this->message['text'] = 'You are in the system now ;)';
                     header("Location: " . ROOT_URL . 'posts/index'); 
                     exit();
                 }else{
-                    $this->errorMessage = 'Your login data is invalid!';
+                    $this->message['type'] = 'error';
+                    $this->message['text'] = 'Your login data is invalid!';
                 }
             } else{
-                $this->errorMessage = "All fields are mandatory!";
+                $this->message['type'] = 'error';
+                $this->message['text'] = 'All fields are mandatory!';
             }
         }
         

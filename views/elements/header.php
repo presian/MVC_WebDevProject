@@ -5,10 +5,10 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Blog System</title>
-      <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/library/bootstrap/css/bootstrap.css">
-      <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/styles/bootstrap-theme.css">
-      <link rel="stylesheet" href="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/styles/main.css">
-      <script type="text/javascript" src="http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/library/jquery-2.1.3.js"></script>
+      <link rel="stylesheet" href="<?php echo ROOT_URL ?>library/bootstrap/css/bootstrap.css">
+      <link rel="stylesheet" href="<?php echo ROOT_URL ?>styles/bootstrap-theme.css">
+      <link rel="stylesheet" href="<?php echo ROOT_URL ?>styles/main.css">
+      <script type="text/javascript" src="<?php echo ROOT_URL ?>library/jquery-2.1.3.js"></script>
     </head>
     <body>
         <div class="container">
@@ -42,12 +42,14 @@
                             </ul>
                           </li>
                         </ul>
-                        <form class="navbar-form navbar-left" role="search">
-                          <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                          </div>
-                          <button type="submit" class="btn btn-default">Submit</button>
-                        </form>-->
+-->                     
+                        <form class="navbar-form navbar-left" role="search" action="<?php echo ROOT_URL ?>posts/index" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search" name="tagName">
+                            </div>
+                            <input type="hidden" name="searched" value="1"/>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
                         
                         <ul class="nav navbar-nav navbar-right">
                             <?php if(!$this->auth->isLogged()): ?>
@@ -62,17 +64,19 @@
                     </div>
                 </div>
             </nav>
-            <?php if($this->errorMessage != NULL): ?>
-            <div class="alert alert-dismissible alert-danger">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong><?= $this->errorMessage ?></strong>
-            </div>
-            <?php endif; ?>
-            <?php if($this->successMessage != NULL): ?>
-            <div class="alert alert-dismissible alert-success">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              <strong><?= $this->successMessage ?></strong>
-            </div>
+            <?php if($this->message != NULL): ?>
+                <?php if($this->message['type'] == 'error'): ?>
+                <div class="alert alert-dismissible alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong><?php echo $this->message['text']; ?></strong>
+                </div>
+                <?php endif; ?>
+                <?php if($this->message['type'] == 'info'): ?>
+                <div class="alert alert-dismissible alert-info">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong><?php echo $this->message['text']; ?></strong>
+                </div>
+                <?php endif; ?>
             <?php endif; ?>
             <div class="row">
                 <div class="btn-group-vertical col-xs-2">

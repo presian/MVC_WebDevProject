@@ -7,6 +7,9 @@ class Logout_Controller extends Master_Controller {
     
     public function index() {
         session_destroy();
+        $this->message['type'] = 'info';
+        $this->message['text'] = 'You are out of the system now ;)';
+
         header("Location: " . HOME_URL); 
         exit();
     }

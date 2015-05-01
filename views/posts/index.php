@@ -7,6 +7,11 @@
                 #<?= $post['id'] ?>
               </span>
                 <span class="post-title"><?= $post['title'] ?></span>
+                <p class="right">
+                    <?php foreach ($post['tags'] as $tag):  ?>
+                    <span class="label label-info tag-right"><?php echo $tag['text'] ?></span>&nbsp;
+                    <?php endforeach; ?>
+                </p>
             </li>
         </a>
         <br/>

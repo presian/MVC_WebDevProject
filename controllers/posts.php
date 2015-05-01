@@ -8,9 +8,21 @@ class Posts_Controller extends Master_Controller {
     }
     
     function index() {
+        $tagName = NULL;
+        if (isset($_POST['searched']) && $_POST['searched'] == 1) {
+            if (isset($_POST['tagName'])) {
+                $tagName = $_POST['tagName'];
+            }
+        }
+        
         $template = ROOT_DIR . $this->viewsDir . 'index.php';        
-        $posts = $this->model->getAllPosts();
-
+        $postsResult = $this->model->getAllPosts($tagName);
+        $posts = array();
+        foreach ($postsResult as $post) {
+            $post['tags'] = $this->model->getTagsForPost($post['id']);
+            $posts[] = $post;
+        }
+        
         include_once $this->layout;
     }
     
@@ -24,17 +36,21 @@ class Posts_Controller extends Master_Controller {
         if (isset($_POST['submitted']) && $_POST['submitted'] == 1 ) {
             $postData = $this->getAddPostFormData();
             if ($postData === FALSE) {
-                $this->errorMessage = 'All fields are mandatory!';
+                $this->message['type'] = 'error';
+                $this->message['text'] = 'All fields are mandatory!';
             } else {
                 $postData['user_id'] = $this->auth->getLoggedUser()['id'];
                 $postData['visits'] = 0;
                 $postData['date'] = date('Y-m-d H:m:s', time());
                 $isAdded = $this->model->addPost($postData);
                 if ($isAdded) {
+                    $this->message['type'] = 'info';
+                    $this->message['text'] = 'Your post in the system now ;)';
                     header("Location: " . ROOT_URL . 'posts/index'); 
                     exit();
                 } else {
-                    $this->errorMessage = 'Post is not recorded in database! Please try again later!';
+                    $this->message['type'] = 'error';
+                    $this->message['text'] = 'Post is not recorded in database! Please try again later!';
                 }
             }
         }
@@ -55,10 +71,13 @@ class Posts_Controller extends Master_Controller {
             $commentData['date'] = date('Y-m-d H:m:s', time());
             $isAdded = $this->model->insertComment($commentData);
             if ($isAdded) {
+                $this->message['type'] = 'info';
+                $this->message['text'] = 'Your comment in the system now ;)';
                 header("Location: " . ROOT_URL . "posts/view/$id"); 
                 exit();
             } else {
-                $this->errorMessage = 'Post is not recorded in database! Please try again later!';
+                $this->message['type'] = 'error';
+                $this->message['text'] = 'Post is not recorded in database! Please try again later!';
             }
         }
         
@@ -86,7 +105,6 @@ class Posts_Controller extends Master_Controller {
         $data['text'] = $_POST['text'];
         return $data;
     }
-
 
     private function getAddPostFormData() {
         if (empty(trim($_POST['title'])) 
