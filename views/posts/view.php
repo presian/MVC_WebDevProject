@@ -37,27 +37,47 @@
         </div>
     </div>
 </div>
-<form class="form-horizontal comment-form" method="POST">
+<form class="form-horizontal <?= count($this->fieldsErrors) > 0 ? '' : ' comment-form';?>" method="POST">
   <fieldset>
     <legend>Add comment</legend>
     <div class="form-group">
-        <label for="name" class="col-lg-2 control-label">Name</label>
+        <?php if(isset($this->fieldsErrors['author'])) :?>
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong><?php echo $this->fieldsErrors['author']; ?></strong>
+        </div>
+        <?php endif;?> 
+        <label for="author" class="col-lg-2 control-label">Name</label>
         <div class="col-lg-10">
-            <input type="text" name="name" class="form-control" id="name" 
-                placeholder="Name..." required="required">
+            <input type="text" name="author" class="form-control" id="name" 
+                placeholder="Name..." value="<?php echo isset($_POST['author']) ? htmlspecialchars($_POST['author']) : '' ?>">
         </div>
     </div>
     <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-      <div class="col-lg-10">
-          <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Email...">
-      </div>
+        <?php if(isset($this->fieldsErrors['email'])) :?>
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong><?php echo $this->fieldsErrors['email']; ?></strong>
+        </div>
+        <?php endif;?> 
+        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+        <div class="col-lg-10">
+            <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email..." 
+                   value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
+        </div>
     </div>
     <div class="form-group">
-      <label for="text" class="col-lg-2 control-label">Textarea</label>
-      <div class="col-lg-10">
-          <textarea class="form-control" rows="5" name="text" id="text" required="requred"></textarea>
-      </div>
+        <?php if(isset($this->fieldsErrors['text'])) :?>
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong><?php echo $this->fieldsErrors['text']; ?></strong>
+        </div>
+        <?php endif;?> 
+        <label for="text" class="col-lg-2 control-label">Textarea</label>
+        <div class="col-lg-10">
+            <textarea class="form-control" rows="5" name="text" id="text" placeholder="Add post text here..."
+                ><?php echo isset($_POST['text']) ? htmlspecialchars($_POST['text']) : '' ?></textarea>
+        </div>
     </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">

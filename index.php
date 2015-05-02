@@ -2,13 +2,20 @@
 include_once '/config/db.php';
 include_once '/library/phpLib/database.php';
 include_once '/library/phpLib/auth.php';
+include_once '/library/phpLib/Paging/Zebra_Pagination.php';
+include_once '/library/phpLib/Validator/Validator.php';
 include_once '/controllers/master.php';
 include_once '/models/master.php';
 
+use Valitron\Validator as V;
+
+V::langDir(__DIR__.'/library/phpLib/Validator/lang'); // always set langDir before lang.
+V::lang('en');
+
 define('ROOT_DIR', dirname(__FILE__)) . '/';
 define('ROOT_DIR_NAME', basename(dirname(__FILE__)));
-define('HOME_URL', "http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/home/index");
-define('ROOT_URL', "http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/");
+//define('HOME_URL', "http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/home/index");
+//define('ROOT_URL', "http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/");
 $request = $_SERVER['REQUEST_URI'];
 $controller = 'master';
 $method = 'index';
@@ -26,7 +33,7 @@ if (!empty($request)) {
         }
         
         if (!file_exists('controllers/' . $controller . '.php')) {
-            header("Location: " . HOME_URL); 
+            header("Location: " .'home/index'); 
             exit();
         }
         
@@ -41,7 +48,7 @@ if (!empty($request)) {
     if (method_exists($instance, $method)) {
         call_user_func_array(array($instance, $method), array($params));
     } else {
-        header("Location: " . HOME_URL); 
+        header("Location: " . '/home/index'); 
         exit();
     }
 }

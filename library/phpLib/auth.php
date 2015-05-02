@@ -49,7 +49,7 @@ class Auth{
                 . "AND password = ? "
                 . "LIMIT 1");
         
-        $statement->bind_param('ss', $username, $password);
+        $statement->bind_param('ss', $username, md5($password));
         $statement->execute();
         
         $resultSet = $statement->get_result();

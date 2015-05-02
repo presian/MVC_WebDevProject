@@ -10,27 +10,43 @@ class Login_Controller extends Master_Controller {
     
     function index() {
         if (isset($_POST['submitted'])) {
-            if (!empty($_POST['username']) && !empty($_POST['password'])) {
-                $username = $_POST['username'];
-                $password = $_POST['password'];
-
-                $isLogged = $this->auth->logIn($username, $password);
-                if ($isLogged) {
-                    $this->message['type'] = 'info';
-                    $this->message['text'] = 'You are in the system now ;)';
-                    header("Location: " . ROOT_URL . 'posts/index'); 
-                    exit();
-                }else{
-                    $this->message['type'] = 'error';
-                    $this->message['text'] = 'Your login data is invalid!';
-                }
-            } else{
-                $this->message['type'] = 'error';
-                $this->message['text'] = 'All fields are mandatory!';
+            $data = $this->getDataFromForm();
+            if ($data != NULL) {
+                $isLogged = $this->auth->logIn($data['username'], $data['password']);
+            }
+            
+            if (isset($isLogged) && $isLogged == TRUE) {
+                $this->addMessage('You are in the system now ;)', 'info');
+                $this->redirectTo('/posts/index');
+            } else {
+                $this->addMessage('Your login data is invalid!', 'error');
             }
         }
         
         $template = ROOT_DIR . $this->viewsDir . 'index.php';
         include_once $this->layout;
-    }    
+    } 
+    
+    private function getDataFromForm() {
+        $rules = [
+            'required' => [
+                ['username'], 
+                ['password']
+            ],
+            'lengthMin' => [
+                ['username', 5],
+                ['password', 5]
+            ],
+            'lengthMax' => [
+                ['username', 20],
+                ['password', 10]
+            ],
+            'slug' => [
+                ['userName'],
+                ['password']
+            ]
+        ];
+        
+        return $this->makeValidation($rules);
+    }
 }

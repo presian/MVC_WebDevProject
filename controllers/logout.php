@@ -10,7 +10,7 @@ class Logout_Controller extends Master_Controller {
         $this->message['type'] = 'info';
         $this->message['text'] = 'You are out of the system now ;)';
 
-        header("Location: " . HOME_URL); 
+        header("Location: " . '/'); 
         exit();
     }
 }

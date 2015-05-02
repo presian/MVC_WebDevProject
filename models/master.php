@@ -29,10 +29,18 @@ class Master_Model {
         $this->db = $db_object::getDb();
     }
     
-    public function exuteStatement($statement) {
+    public function exuteStatementWithResultArray($statement) {
         $statement->execute();
-        $rows = $statement->get_result();        
+        $rows = $statement->get_result();
         return $this->processResultSet($rows);
+    }
+    
+    public function exuteStatement($statement) {
+        if ($statement->execute()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
     
     public function getById($id) {
@@ -102,6 +110,11 @@ class Master_Model {
         if (!empty($order)) {
             $query .= " ORDER BY $order";
         }
+        
+//        echo '<pre>';
+//        var_dump($query);
+//        die;
+//        echo '</pre>';
         
         $resultSet = $this->db->query($query);
         $results = $this->processResultSet($resultSet);
