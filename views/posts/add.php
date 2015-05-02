@@ -19,7 +19,7 @@
         </div>
         <?php endif;?> 
         <label for="text">Text:</label>
-        <textarea class="col-xs-12" rows="5" name="text" required="required"
+        <textarea class="col-xs-12" rows="5" name="text"
                 placeholder="Add post text here..."><?= isset($_POST['text']) 
                 ? htmlspecialchars($_POST['text']) 
                 :  ''  ?></textarea>

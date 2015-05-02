@@ -17,5 +17,4 @@
         <br/>
         <?php endforeach; ?>
     </ul>
-    <?php echo $markup  ?>
 <?php endif; ?>

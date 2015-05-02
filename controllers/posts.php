@@ -66,6 +66,8 @@ class Posts_Controller extends Master_Controller {
             $this->redirectTo('/posts/index');
         }
         
+        $this->model->updateCounter($id);
+        
         $template = ROOT_DIR . $this->viewsDir . 'view.php';        
         
         if (isset($_POST['submitted']) && $_POST['submitted'] == 1) {

@@ -9,13 +9,11 @@ include_once '/models/master.php';
 
 use Valitron\Validator as V;
 
-V::langDir(__DIR__.'/library/phpLib/Validator/lang'); // always set langDir before lang.
+V::langDir(__DIR__.'/library/phpLib/Validator/lang');
 V::lang('en');
 
 define('ROOT_DIR', dirname(__FILE__)) . '/';
 define('ROOT_DIR_NAME', basename(dirname(__FILE__)));
-//define('HOME_URL', "http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/home/index");
-//define('ROOT_URL', "http://localhost/SoftUni/Exam's/WebDev/MVC_WebDevProject/");
 $request = $_SERVER['REQUEST_URI'];
 $controller = 'master';
 $method = 'index';
