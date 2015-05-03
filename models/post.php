@@ -8,54 +8,6 @@ class Post_Model extends Master_Model{
     }
     
     public function getAllPosts($tagName = NULL, $date = NULL) {
-//        echo '<pre>';
-//        var_dump($date);
-//        echo '</pre>';
-//        $query = "SELECT 
-//                    p.id,
-//                    p.text,
-//                    p.user_id,
-//                    p.visits,
-//                    p.title,
-//                    p.date    
-//                FROM posts p
-//                LEFT JOIN posts_tags pt
-//                ON p.id = pt.post_id
-//                LEFT JOIN tags t
-//                ON pt.tag_id = t.id
-//                WHERE 1=1
-//                :tagNameCondition
-//                :dateCondition
-//                ORDER BY p.DATE DESC";
-//        $tagNameCondition = ' AND t.text LIKE ?';
-//        $dateCondition = ' AND p.date > ?';
-//        
-//        if ($tagName != NULL && $date =! NULL) {
-//            $query = str_replace(":tagNameCondition", $tagNameCondition, $query);
-//            $query = str_replace(":dateCondition", $dateCondition, $query);
-//            $statement = $this->db->prepare($query);
-//            $statement->bind_param("ss", $tagName, $date);
-//            return $this->exuteStatementWithResultArray($statement);
-//        }
-//        
-//        if ($tagName != NULL) {
-//            $query = str_replace(":tagNameCondition", $tagNameCondition, $query);
-//            $query = str_replace(":dateCondition", '', $query);
-//            $statement = $this->db->prepare($query);
-//            $statement->bind_param("s", $tagName);
-//            return $this->exuteStatementWithResultArray($statement);
-//        }
-//        
-//        if ($date != NULL) {
-//            $query = str_replace(":tagNameCondition", '', $query);
-//            $query = str_replace(":dateCondition", $dateCondition, $query);
-//            echo '<pre>';
-//            var_dump($query);
-//            echo '</pre>';
-//            $statement = $this->db->prepare($query);
-//            $statement->bind_param("s", $date);
-//            return $this->exuteStatementWithResultArray($statement);
-//        }
         
         if ($tagName != NULL) {
             $tagName = '%' . mysql_real_escape_string($tagName) . '%';

@@ -15,6 +15,8 @@ class Register_Controller extends Master_Controller{
             if ($result) {
                 $this->addMessage('You are registered now! If you want login now!', 'info');
                 $this->redirectTo('/login/index');
+            } else {
+                $this->addMessage('You ar not registered! Please try again later!', 'error');
             } 
         }
         

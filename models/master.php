@@ -111,11 +111,6 @@ class Master_Model {
             $query .= " ORDER BY $order";
         }
         
-//        echo '<pre>';
-//        var_dump($query);
-//        die;
-//        echo '</pre>';
-        
         $resultSet = $this->db->query($query);
         $results = $this->processResultSet($resultSet);
         return $results;
